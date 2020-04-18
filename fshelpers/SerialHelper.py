@@ -114,7 +114,7 @@ class SerialHelper():
             serial.link = link[0] if len(link) else u''
 
             title = XbmcHelpers.parseDOM(item, "h2")
-            serial.title = XbmcHelpers.stripTags(title[0]) if len(title) else u''
+            serial.title = XbmcHelpers.stripTags(title[0]).replace("&ndash;","-").replace("&mdash;","-") if len(title) else u''
 
             origin = XbmcHelpers.parseDOM(item, "div", attrs={"class": "name-origin-search"})
             serial.originalTitle = XbmcHelpers.stripTags(origin[0]) if len(origin) else u''
@@ -146,9 +146,9 @@ class SerialHelper():
             if len(titleNode) > 0:
                 serial = Serial()
                 
-                serial.title = XbmcHelpers.stripTags(titleNode[0])
+                serial.title = XbmcHelpers.stripTags(titleNode[0]).replace("&ndash;","-").replace("&mdash;","-")
                 serial.translates = XbmcHelpers.parseDOM(translateNode[0], "a")
-                serial.description = XbmcHelpers.stripTags(descriptionNode[0])
+                serial.description = XbmcHelpers.stripTags(descriptionNode[0]).replace("&ndash;","-").replace("&mdash;","-")
                 serial.poster = imgNode[0].replace("');", "").replace("background-image: url('", "")
                 serial.link = linkNode[0]
                 
@@ -173,8 +173,8 @@ class SerialHelper():
             if len(titleNode) > 0:
                 serial = Serial()
                 
-                serial.title = XbmcHelpers.stripTags(titleNode[0])
-                serial.genre = XbmcHelpers.stripTags(genreNode[0]) if len(genreNode) else ""
+                serial.title = XbmcHelpers.stripTags(titleNode[0]).replace("&ndash;","-").replace("&mdash;","-")
+                serial.genre = XbmcHelpers.stripTags(genreNode[0]).replace("&ndash;","-").replace("&mdash;","-") if len(genreNode) else ""
                 serial.poster = imgNode[0]
                 serial.link = linkNode[0]
                 
@@ -198,8 +198,8 @@ class SerialHelper():
             if len(titleNode) > 0:
                 serial = Serial()
 
-                serial.title = XbmcHelpers.stripTags(titleNode[0])
-                serial.genre = XbmcHelpers.stripTags(genreNode[0]) if len(genreNode) else ""
+                serial.title = XbmcHelpers.stripTags(titleNode[0]).replace("&ndash;","-").replace("&mdash;","-")
+                serial.genre = XbmcHelpers.stripTags(genreNode[0]).replace("&ndash;","-").replace("&mdash;","-") if len(genreNode) else ""
                 serial.poster = imgNode[0]
                 serial.link = linkNode[0]
 
@@ -243,7 +243,7 @@ class SerialHelper():
 
         # TITLE
         titleNode = XbmcHelpers.parseDOM(pageContent, "h1", attrs={"class": "page-title"})
-        serial.title = XbmcHelpers.stripTags(titleNode[0])
+        serial.title = XbmcHelpers.stripTags(titleNode[0]).replace("&ndash;","-").replace("&mdash;","-")
 
         infoContainer = XbmcHelpers.parseDOM(pageContent, "div", attrs={"id": "o-seriale"})
 
@@ -253,7 +253,7 @@ class SerialHelper():
 
         # DESCRIPTION
         descriptionNode = XbmcHelpers.parseDOM(infoContainer, "div", attrs={"itemprop": "description"})
-        serial.description = XbmcHelpers.stripTags(descriptionNode[0])
+        serial.description = XbmcHelpers.stripTags(descriptionNode[0]).replace("&ndash;","-").replace("&mdash;","-")
 
         infoList = XbmcHelpers.parseDOM(infoContainer, "ul", attrs={"class": "info-list"})
         listItems = XbmcHelpers.parseDOM(infoList, "li")
@@ -280,11 +280,11 @@ class SerialHelper():
 
         # GENRES
         genreNode = XbmcHelpers.parseDOM(infoContainer, "div", attrs={"itemprop": "genre"})
-        serial.genre = XbmcHelpers.stripTags(genreNode[0])
+        serial.genre = XbmcHelpers.stripTags(genreNode[0]).replace("&ndash;","-").replace("&mdash;","-")
 
         # ORIGINAL TITLE
         originNode = XbmcHelpers.parseDOM(infoContainer, "div", attrs={"itemprop": "alternativeHeadline"})
-        serial.originalTitle = XbmcHelpers.stripTags(originNode[0])
+        serial.originalTitle = XbmcHelpers.stripTags(originNode[0]).replace("&ndash;","-").replace("&mdash;","-")
 
         # SEASONS
         seasonsNav = XbmcHelpers.parseDOM(pageContent, "div", attrs={"class": "serial-page-nav"})
@@ -339,7 +339,7 @@ class SerialHelper():
 
             # EPISODE TITLE
             titleNode = XbmcHelpers.parseDOM(item, "div", attrs={"class": "field-description"})
-            episode.title = XbmcHelpers.stripTags(titleNode[0])
+            episode.title = XbmcHelpers.stripTags(titleNode[0]).replace("&ndash;","-").replace("&mdash;","-")
 
             # EPISODE LINK
             linkNode = XbmcHelpers.parseDOM(titleNode, "a", ret="href")
